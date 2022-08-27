@@ -29,6 +29,6 @@
     'installable': True,
     'auto_install': False,
     'images': [],
-    'price': 0.0,
+    'price': 1.0,
     'currency': 'EUR',
 }
