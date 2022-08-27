@@ -30,5 +30,5 @@
     'images': [],
     'price': 1.0,
     'currency': 'EUR',
-    'license': 'OPL-1',
+    'license': 'LGPL-3',
 }
