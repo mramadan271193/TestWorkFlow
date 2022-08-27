@@ -3,14 +3,11 @@
     'summary': """
             Base Agile
     """,
-    'description': """
-            Base Agile
-    """,
     'version': '15.0.0.1',
     'category': 'project',
     'sequence': 1,
     'author': "Eng-Mahmoud Ramadan",
-    'website': 'mramadan271193@gmail.com',
+    'website': 'https://odoo.com',
     'depends': [
         'base',
         'hr',
