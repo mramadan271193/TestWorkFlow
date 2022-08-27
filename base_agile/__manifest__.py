@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Base Agile",
     'summary': """
@@ -31,4 +30,5 @@
     'images': [],
     'price': 1.0,
     'currency': 'EUR',
+    'license': 'OPL-1',
 }
