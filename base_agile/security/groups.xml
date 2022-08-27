@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="module_project_agile" model="ir.module.category">
+        <field name="name">Scrum Project</field>
+        <field name="description">Scrum Project</field>
+        <field name="sequence">9</field>
+    </record>
+
+    <record id="developer_group" model="res.groups">
+        <field name="name">Developer</field>
+        <field name="category_id" ref="base_agile.module_project_agile"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="scrum_master_group" model="res.groups">
+        <field name="name">Scrum Master</field>
+        <field name="category_id" ref="base_agile.module_project_agile"/>
+        <field name="implied_ids" eval="[(4, ref('base_agile.developer_group'))]"/>
+    </record>
+
+</odoo>
