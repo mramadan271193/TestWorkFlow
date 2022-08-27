@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <odoo>
 
     <record id="module_project_agile" model="ir.module.category">
