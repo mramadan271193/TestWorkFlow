@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Base Agile",
+    'name': "Base Agile ",
     'summary': """
             Base Agile
     """,
