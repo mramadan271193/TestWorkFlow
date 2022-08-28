@@ -4,4 +4,4 @@ _logger = logging.getLogger(__name__)
 
 
 def get_name():
-    _logger.info("Hellow CI")
+_logger.info("Hellow CI")
