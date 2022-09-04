@@ -4,5 +4,5 @@ _logger = logging.getLogger(__name__)
 
 
 def get_name():
-    print("Hello CI/DC  ")
+    print("CCC")
     _logger.info("Hello CI")
