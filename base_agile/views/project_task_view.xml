@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- TODO: default Task View -->
+    <record id="view_task_form2" model="ir.ui.view">
+        <field name="name">project.task.form.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='parent_id']" position="before">
+                <field name="task_type" required="True"/>
+                <field name="task_priority"/>
+                <field name="task_severity"/>
+            </xpath>
+            <xpath expr="//field[@name='date_deadline']" position="before">
+                <field name="delegation_date"/>
+            </xpath>
+            <xpath expr="//notebook" position="before">
+                <div attrs="{'invisible':[('task_type','!=','user_story')]}">
+                    <b class="text-primary">The definition of user story</b>
+                </div>
+                <group name="story_role" attrs="{'invisible':[('task_type','!=','user_story')]}">
+                    <field name="story_role"
+                           attrs="{'required':[('task_type','=','user_story')]}"
+                           placeholder="As a passenger,"/>
+                </group>
+                <group name="story_action" attrs="{'invisible':[('task_type','!=','user_story')]}">
+                    <field name="story_action"
+                           attrs="{'required':[('task_type','=','user_story')]}"
+                           placeholder="I want several available drivers to be displayed"/>
+                </group>
+                <group name="story_value" attrs="{'invisible':[('task_type','!=','user_story')]}">
+                    <field name="story_value"
+                           attrs="{'required':[('task_type','=','user_story')]}"
+                           placeholder="so that I can choose the most suitable option for me."/>
+                </group>
+                <group name="story_acceptance_criteria" attrs="{'invisible':[('task_type','!=','user_story')]}">
+                    <field name="story_acceptance_criteria"
+                           placeholder=" 1-The app shows drivers that were online within last 20 minutes and don’t have an ongoing ride. 2-The app shows only 5 drivers that are closest to the user. 3-A user can browse profiles of these drivers, including their photos and rates."/>
+                </group>
+                <group name="story_scenario" attrs="{'invisible':[('task_type','!=','user_story')]}">
+                    <field name="story_scenario"
+                           placeholder="Story Scenario"/>
+                </group>
+            </xpath>
+
+            <xpath expr="//div[@name='button_box']" position="after">
+                <widget name="web_ribbon" title="Epic" bg_color="bg-primary"
+                        attrs="{'invisible': [('task_type', '!=', 'epic')]}"/>
+                <widget name="web_ribbon" title="User Story" bg_color="bg-warning"
+                        attrs="{'invisible': [('task_type', '!=', 'user_story')]}"/>
+                <widget name="web_ribbon" title="Task" bg_color="bg-info"
+                        attrs="{'invisible': [('task_type', '!=', 'task')]}"/>
+                <widget name="web_ribbon" title="Sub Task" bg_color="bg-secondary"
+                        attrs="{'invisible': [('task_type', '!=', 'sub_task')]}"/>
+                <widget name="web_ribbon" title="bug" bg_color="bg-danger"
+                        attrs="{'invisible': [('task_type', '!=', 'bug')]}"/>
+            </xpath>
+
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_open_tasks" type="object" class="oe_stat_button" icon="fa-list">
+                    <field name="task_count" string="Task" widget="statinfo"/>
+                </button>
+                <button name="action_open_bugs" type="object" class="oe_stat_button" icon="fa-bug">
+                    <field name="bug_count" string="Bugs" widget="statinfo"/>
+                </button>
+            </xpath>
+
+
+        </field>
+    </record>
+
+    <record id="view_task_kanban" model="ir.ui.view">
+        <field name="name">project.task.sprint</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_kanban"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="task_type"/>
+            </xpath>
+            <xpath expr="//div[@class='oe_kanban_bottom_right']/field[@name='kanban_state']" position="before">
+                <t t-if="record.task_type.raw_value == 'epic'">
+                    <span class="badge badge-pill badge-primary">Epic</span>
+                </t>
+                <t t-if="record.task_type.raw_value == 'user_story'">
+                    <span class="badge badge-pill badge-warning">Story</span>
+                </t>
+                <t t-if="record.task_type.raw_value == 'task'">
+                    <span class="badge badge-pill badge-info">Task</span>
+                </t>
+                <t t-if="record.task_type.raw_value == 'sub_task'">
+                    <span class="badge badge-pill badge-secondary">Sub-Task</span>
+                </t>
+                <t t-if="record.task_type.raw_value == 'bug'">
+                    <span class="badge badge-pill badge-danger">Bug</span>
+                </t>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="view_task_tree2" model="ir.ui.view">
+        <field name="name">project.task.type</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_tree2"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='user_ids']" position="after">
+                <field name="task_type"/>
+                <field name="task_priority"/>
+                <field name="task_severity"/>
+            </xpath>
+            <xpath expr="//tree" position="attributes">
+                <attribute name="decoration-primary">task_type == 'epic'</attribute>
+                <attribute name="decoration-warning">task_type == 'user_story'</attribute>
+                <attribute name="decoration-info">task_type == 'task'</attribute>
+                <attribute name="decoration-bf">task_type == 'sub_task'</attribute>
+                <attribute name="decoration-danger">task_type == 'bug'</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+
+</odoo>
